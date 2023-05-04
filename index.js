@@ -1,8 +1,14 @@
 const { ApolloServer } = require('@apollo/server')
 const { startStandaloneServer }  = require('@apollo/server/standalone');
 const { default: mongoose } = require('mongoose');
-const typeDefs = require('./src/schema')
-const resolvers = require('./src/resolvers/users')
+const { mergeResolvers, mergeTypeDefs } = require('@graphql-tools/merge')
+const { loadFilesSync } = require('@graphql-tools/load-files')
+const path = require('path')
+const resolverFiles = loadFilesSync(path.join(__dirname, "src/resolvers"))
+const typesArray = loadFilesSync(path.join(__dirname, "src/types"))
+
+const typeDefs = mergeTypeDefs(typesArray)
+const resolvers = mergeResolvers(resolverFiles)
 const jwt = require('jsonwebtoken')
 
 const MONGODB = "mongodb+srv://oseiasc2:j3qqlbCc4YFFqnAP@apopydb.e92lo9p.mongodb.net/?retryWrites=true&w=majority"
