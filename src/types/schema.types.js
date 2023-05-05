@@ -1,6 +1,4 @@
-const gql = require("graphql-tag");
-
-const typeDefs = gql`
+module.exports = `
   type User {
     id: ID
     name: String
@@ -71,5 +69,3 @@ const typeDefs = gql`
     createSubcategory(subcategoryInput: SubcategoryInput): Subcategory
   }
 `;
-
-module.exports = typeDefs;
