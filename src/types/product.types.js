@@ -11,12 +11,7 @@ module.exports = `#graphql
     #price: Int
   }
   
-  input CreateProduct {
-      name: String
-      subcategory: Subcategory
-  }
-  
   type Query {
     products: [Product]
-  
+  }
 `

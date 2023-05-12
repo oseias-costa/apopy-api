@@ -60,7 +60,7 @@ module.exports = {
 
     async createCategory(_, { categoryInput: { name } }) {
       const category = new Category({ name });
-      return await category.save();
+      return await category.save()
     },
 
     async createSubcategory(_, { subcategoryInput: { name, category } }) {
