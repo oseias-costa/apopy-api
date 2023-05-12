@@ -1,6 +1,4 @@
 module.exports = `#graphql
-<<<<<<< HEAD
-=======
   type User {
     id: ID
     name: String
@@ -21,8 +19,7 @@ module.exports = `#graphql
     #suplier: Suplier
     #price: Int
   }
-
->>>>>>> a1a0ac11de9e1035d43675172022bef9973a945c
+  
   type Category {
     id: ID
     name: String

@@ -54,8 +54,7 @@ module.exports = {
         throw new ApolloError("Incorrect password", "INCORRECT_PASSWORD");
       }
     },
-<<<<<<< HEAD
-
+    
     async createCategory(_, { categoryInput: { name } }) {
       const category = new Category({ name });
       return await category.save()
@@ -65,8 +64,6 @@ module.exports = {
       const subcategory = new Subcategory({ name, category });
       return await subcategory.save();
     },
-=======
->>>>>>> a1a0ac11de9e1035d43675172022bef9973a945c
   },
   Query: {
     async users(_, __, context) {
