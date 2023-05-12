@@ -1,4 +1,4 @@
-const { model, Schema, default: mongoose } = require("mongoose");
+const { model, Schema } = require("mongoose");
 
 const SubcategorySchema = new Schema({
   name: String,
