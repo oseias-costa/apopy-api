@@ -1,4 +1,28 @@
 module.exports = `#graphql
+<<<<<<< HEAD
+=======
+  type User {
+    id: ID
+    name: String
+    email: String
+    password: String
+    phone: String
+    token: String
+  }
+
+  type Product {
+    id: ID
+    category: String
+    suplier: String
+    description: String
+    #name: String
+    #category: Category
+    #subcategory: Subcategory
+    #suplier: Suplier
+    #price: Int
+  }
+
+>>>>>>> a1a0ac11de9e1035d43675172022bef9973a945c
   type Category {
     id: ID
     name: String

@@ -1,7 +1,4 @@
 const User = require("../models/User");
-const Product = require("../models/Product");
-const Category = require("../models/Category");
-const Subcategory = require("../models/Subcategory");
 const { ApolloError } = require("apollo-server-errors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -57,6 +54,7 @@ module.exports = {
         throw new ApolloError("Incorrect password", "INCORRECT_PASSWORD");
       }
     },
+<<<<<<< HEAD
 
     async createCategory(_, { categoryInput: { name } }) {
       const category = new Category({ name });
@@ -67,31 +65,17 @@ module.exports = {
       const subcategory = new Subcategory({ name, category });
       return await subcategory.save();
     },
+=======
+>>>>>>> a1a0ac11de9e1035d43675172022bef9973a945c
   },
   Query: {
     async users(_, __, context) {
       const verify = context.user !== null ? await User.find() : null;
+      console.log(context)
       return verify;
     },
     async user(_, { id }) {
       return await User.findById(id);
     },
-    async products() {
-      return await Product.find();
-    },
-    async category(_, { id }) {
-      return await Category.findById(id);
-    },
-    async categories() {
-      return await Category.find();
-    },
-    async subcategories() {
-      return await Subcategory.find();
-    },
-  },
-  Subcategory: {
-    async category(obj) {
-      return await Category.findById(obj.category);
-    },
-  },
+  }
 };
