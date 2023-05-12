@@ -51,4 +51,5 @@ async function StartApolloServer() {
         📬 On url: ${url}
     `);
 }
+
 StartApolloServer();

@@ -1,15 +1,15 @@
 const { model, Schema } = require("mongoose");
 
-const CategorySchema = new Schema({
+const SuplierSchema = new Schema({
   name: {
     type: String,
     require: true,
     unique: true,
   },
-  userID: {
+  userId: {
     type: Schema.Types.ObjectId,
     require: true,
   },
 });
 
-module.exports = model("Category", CategorySchema);
+module.exports = model("Suplier", SuplierSchema);

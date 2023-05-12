@@ -1,9 +1,10 @@
-const { model, Schema } = require('mongoose')
+const { model, Schema } = require("mongoose");
 
 const ProductSchema = new Schema({
-    category: String,
-    suplier: String,
-    description: String
-})
+  name: String,
+  category: Schema.Types.ObjectId,
+  subcategory: Schema.Types.ObjectId,
+  suplier: String,
+});
 
-module.exports = model("Product", ProductSchema)
+module.exports = model("Product", ProductSchema);

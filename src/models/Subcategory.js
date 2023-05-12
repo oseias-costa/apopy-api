@@ -1,8 +1,8 @@
-const { model, Schema } = require("mongoose");
+const { model, Schema, defaut: mongoose } = require("mongoose");
 
 const SubcategorySchema = new Schema({
   name: String,
-  category: String,
+  category: Schema.Types.ObjectId,
 });
 
 module.exports = model("Subcategory", SubcategorySchema);
