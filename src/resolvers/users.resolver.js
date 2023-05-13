@@ -79,11 +79,6 @@ module.exports = {
         throw new ApolloError("Incorrect password", "INCORRECT_PASSWORD");
       }
     },
-    
-    async createCategory(_, { categoryInput: { name } }) {
-      const category = new Category({ name });
-      return await category.save()
-    },
 
     async createSubcategory(_, { subcategoryInput: { name, category } }) {
       const subcategory = new Subcategory({ name, category });
