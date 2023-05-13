@@ -1,12 +1,4 @@
 module.exports = `#graphql
-  type User {
-    id: ID
-    name: String
-    email: String
-    password: String
-    phone: String
-    token: String
-  }
 
   type Product {
     id: ID
@@ -28,14 +20,9 @@ module.exports = `#graphql
   }
 
   type Query {
-    categories: [Category]
-    category(id: ID!): Category
     subcategories: [Subcategory]
   }
 
-  input CategoryInput {
-    name: String
-  }
 
   input SubcategoryInput {
     name: String
@@ -43,7 +30,6 @@ module.exports = `#graphql
   }
 
   type Mutation {
-    createCategory(categoryInput: CategoryInput): Category
     createSubcategory(subcategoryInput: SubcategoryInput): Subcategory
   }
 `;
