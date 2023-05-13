@@ -4,7 +4,10 @@ module.exports = `#graphql
     _id: ID
     name: String
     userId: ID
-    subcategory: [Subcategory]
+  }
+  
+  type Subcategories {
+    name: String
   }
   
   type Query {
