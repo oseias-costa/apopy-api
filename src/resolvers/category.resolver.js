@@ -2,7 +2,7 @@ const { db } = require('../services/mongodb')
 
 module.exports = {
     Mutation: {
-        async createCategory(_, { categoryInput: { name } }) {
+        async createCategory(_, { categoryInput: { name, userId } }) {
             const category = await db.insertOne({ name })
             return console.log(category)
           },

@@ -5,6 +5,7 @@ module.exports = `#graphql
     email: String
     password: String
     phone: String
+    createAt: String
     token: String
   }
   

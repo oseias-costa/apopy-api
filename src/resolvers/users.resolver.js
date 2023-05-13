@@ -20,6 +20,7 @@ module.exports = {
         email,
         password: encryptedPassword,
         phone,
+        createAt: new Date()
       };
 
       

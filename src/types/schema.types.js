@@ -20,11 +20,6 @@ module.exports = `#graphql
     #price: Int
   }
   
-  type Category {
-    _id: ID
-    name: String
-    subcategory: [Subcategory]
-  }
 
   type Subcategory {
     id: ID
