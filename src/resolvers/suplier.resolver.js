@@ -1,4 +1,4 @@
-const Suplier = require("../model/Suplier");
+const Suplier = require("../models/Suplier");
 
 module.exports = {
   Query: {
@@ -21,9 +21,9 @@ module.exports = {
       return await Suplier.findOneAndRemove(id);
     },
   },
-  Suplier: {
-    async suplier(_, { id }) {
-      return await Suplier.findById(id);
-    },
-  },
+  // Suplier: {
+  //   async suplier(_, { id }) {
+  //     return await Suplier.findById(id);
+  //   },
+  // },
 };

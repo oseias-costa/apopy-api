@@ -21,7 +21,7 @@ module.exports = `#graphql
   }
   
   type Category {
-    id: ID
+    _id: ID
     name: String
     subcategory: [Subcategory]
   }

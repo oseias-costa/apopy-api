@@ -12,11 +12,12 @@ module.exports = `#graphql
     type Query {
         suplier(id: ID): Suplier
         supliers: [Suplier]
+        Suplier(id: ID): Suplier
     }
     
     type Mutation {
         createSuplier(suplierInput: SuplierInput): Suplier
         updateSuplier(suplierInput: SuplierInput): Suplier
-        deleteSuplier(ID): Suplier
+        deleteSuplier(id: ID): Suplier
     }
 `

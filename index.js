@@ -1,27 +1,19 @@
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
-const { default: mongoose } = require("mongoose");
 const { mergeResolvers, mergeTypeDefs } = require("@graphql-tools/merge");
 const { loadFilesSync } = require("@graphql-tools/load-files");
 const path = require("path");
 const resolverFiles = loadFilesSync(path.join(__dirname, "src/resolvers"));
 const typesArray = loadFilesSync(path.join(__dirname, "src/types"));
-
-const MONGODB =
-  "mongodb+srv://oseiasc2:j3qqlbCc4YFFqnAP@apopydb.e92lo9p.mongodb.net/?retryWrites=true&w=majority";
+const { ConnectedMongoDB, db } = require('./src/services/mongodb')
 
 const typeDefs = mergeTypeDefs(typesArray);
 const resolvers = mergeResolvers(resolverFiles);
 const jwt = require("jsonwebtoken");
-const { collection } = require("./src/models/Product");
+
 
 async function StartApolloServer() {
   const server = new ApolloServer({ typeDefs, resolvers });
-
-  await mongoose.connect(MONGODB, { useNewUrlParser: true }).then(
-    console.log(`
-         💾 MongoDB Connected`)
-  );
 
   const { url } = await startStandaloneServer(server, {
     context: ({ req }) => {
@@ -52,4 +44,10 @@ async function StartApolloServer() {
     `);
 }
 
-StartApolloServer();
+
+async function main(){
+  await ConnectedMongoDB().catch(console.error);
+  return StartApolloServer();
+}
+
+main()
