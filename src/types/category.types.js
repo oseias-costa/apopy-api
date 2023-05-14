@@ -4,10 +4,7 @@ module.exports = `#graphql
     _id: ID
     name: String
     userId: ID
-  }
-  
-  type Subcategories {
-    name: String
+    subcategory: [String]
   }
   
   type Query {
@@ -19,8 +16,16 @@ module.exports = `#graphql
     name: String
     userId: String
   }
+
+   input CategoryEdit {
+    _id: ID
+    name: String
+    userId: String
+  }
     
   type Mutation {
       createCategory(categoryInput: CategoryInput): Category
+      updateCategory(categoryEdit: CategoryEdit): Category
+      deleteCategory(categoryEdit: CategoryEdit): Category
   }
 `;

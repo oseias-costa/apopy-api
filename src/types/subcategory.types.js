@@ -7,8 +7,17 @@ module.exports = `#graphql
         name: String
         category: ID
     }
+
+    input SubcategoryEdit {
+        _id: ID
+        name: String
+        newName: String
+        category: ID
+    }
     
     type Mutation {
         createSubcategory(subcategoryInput: SubcategoryInput): Subcategory
+        updateSubcategory(subcategoryEdit: SubcategoryEdit): Subcategory
+        deleteSubcategory(subcategoryEdit: SubcategoryEdit): Subcategory
     }
 `;

@@ -2,11 +2,13 @@ module.exports = `#graphql
     type Suplier {
         name: String
         userId: ID
+        _id: ID
     }
     
     input SuplierInput {
         name: String
         userid: ID
+        _id: ID
     } 
     
     type Query {
@@ -18,6 +20,6 @@ module.exports = `#graphql
     type Mutation {
         createSuplier(suplierInput: SuplierInput): Suplier
         updateSuplier(suplierInput: SuplierInput): Suplier
-        deleteSuplier(id: ID): Suplier
+        deleteSuplier(_id: ID): Suplier
     }
 `

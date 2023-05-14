@@ -12,6 +12,20 @@ module.exports = {
       const _id = new BSON.ObjectId(category.insertedId);
       return await db.collection("categories").findOne({ _id: _id });
     },
+
+    async updateCategory(_, { categoryEdit: { name, _id }}){
+      const id = new BSON.ObjectId(_id);
+
+      await db.collection('categories').updateOne({ _id: id }, { $set: { name: name }})
+      return { name: name }
+    },
+
+    async deleteCategory(_, { categoryEdit: { _id }}){
+      const id = new BSON.ObjectId(_id);
+
+      await db.collection('categories').deleteOne({ _id: id })
+      return { name: 'deleted'}
+    }
   },
 
   Query: {
@@ -26,13 +40,13 @@ module.exports = {
     },
   },
 
-  Subcategories: {
-    async subcategory(_, { id }) {
-      const nid = new BSON.ObjectId(id);
-      const res = await db.collection("categories").findOne({ _id: nid });
-      return res.subcategory.map(function (item) {
-        return console.log(item);
-      });
-    },
-  },
+  // Subcategories: {
+  //   async subcategory(_, { id }) {
+  //     const nid = new BSON.ObjectId(id);
+  //     const res = await db.collection("categories").findOne({ _id: nid });
+  //     return res.subcategory.map(function (item) {
+  //       return console.log(item);
+  //     });
+  //   },
+  // },
 };

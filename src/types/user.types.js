@@ -30,4 +30,6 @@ module.exports = `#graphql
     registerUser(registerInput: RegisterInput): User
     loginUser(loginInput: LoginInput): User
   }
+
+  #6451a787de4c08d54ed8da35 userId
 `;
