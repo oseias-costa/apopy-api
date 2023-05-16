@@ -1,6 +1,7 @@
 
 module.exports = `#graphql
     type Stock {
+        userId: ID
         category: String
         subcategory: String
         product: String
@@ -17,6 +18,7 @@ module.exports = `#graphql
     }
 
     input StockItem {
+        userId: ID
         category: String
         subcategory: String
         product: String
@@ -26,9 +28,14 @@ module.exports = `#graphql
         total: Int
         costPrice: Int
         description: String
+        createAt: String
     }
 
     type Mutation {
         createStockItem(stockItem: StockItem): Stock
     }
 `
+// Stock
+// - Vendas
+// - Perda
+// - Devolução
