@@ -4,13 +4,12 @@ const { mergeResolvers, mergeTypeDefs } = require("@graphql-tools/merge");
 const { loadFilesSync } = require("@graphql-tools/load-files");
 const path = require("path");
 const resolverFiles = loadFilesSync(path.join(__dirname, "src/resolvers"));
-const typesArray = loadFilesSync(path.join(__dirname, "src/types"));
-const { ConnectedMongoDB, db } = require('./src/services/mongodb')
+const typesArray = loadFilesSync(path.join(__dirname, "src/types", "**"));
+const { ConnectedMongoDB, db } = require("./src/services/mongodb");
 
 const typeDefs = mergeTypeDefs(typesArray);
 const resolvers = mergeResolvers(resolverFiles);
 const jwt = require("jsonwebtoken");
-
 
 async function StartApolloServer() {
   const server = new ApolloServer({ typeDefs, resolvers });
@@ -44,10 +43,9 @@ async function StartApolloServer() {
     `);
 }
 
-
-async function main(){
+async function main() {
   await ConnectedMongoDB().catch(console.error);
   return StartApolloServer();
 }
 
-main()
+main();
