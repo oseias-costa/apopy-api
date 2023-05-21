@@ -5,7 +5,7 @@ const { loadFilesSync } = require("@graphql-tools/load-files");
 const path = require("path");
 const resolverFiles = loadFilesSync(path.join(__dirname, "src/resolvers"));
 const typesArray = loadFilesSync(path.join(__dirname, "src/types", "**"));
-const { ConnectedMongoDB, db } = require("./src/services/mongodb");
+const { ConnectedMongoDB } = require("./src/services/mongodb");
 
 const typeDefs = mergeTypeDefs(typesArray);
 const resolvers = mergeResolvers(resolverFiles);

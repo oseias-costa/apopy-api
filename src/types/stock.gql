@@ -1,21 +1,5 @@
-module.exports = `
-    type Sale {
-        userId: ID
-        category: String
-        subcategory: String
-        product: String
-        suplier: String
-        quantity: Int
-        price: Int
-        total: Int
-        costPrice: Int
-        description: String
-        profit: Int
-        percentage: Int
-        date: String
-    }
-    
-    input SaleReverseInput {
+
+    type Stock {
         userId: ID
         category: String
         subcategory: String
@@ -27,12 +11,28 @@ module.exports = `
         costPrice: Int
         description: String
     }
-    
+
     type Query {
-        sales: [Sale]
+        stock: [Stock]
     }
-    
+
+    input StockItem {
+        userId: ID
+        category: String
+        subcategory: String
+        product: String
+        suplier: String
+        quantity: Int
+        price: Int
+        total: Int
+        costPrice: Int
+        description: String
+        createAt: String
+    }
+
     type Mutation {
-        reverseSale(saleReverseInput: SaleReverseInput): Sale
+        createStockItem(stockItem: StockItem): Stock
+        editStockItem(stockItem: StockItem): Stock
+        deleteStockItem(id: ID ): Stock
     }
-`;
+

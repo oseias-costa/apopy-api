@@ -8,67 +8,26 @@ module.exports = {
     },
   },
   Mutation: {
-    async createStockItem(
-      _,
-      {
-        stockItem: {
-          product,
-          category,
-          subcategory,
-          suplier,
-          quantity,
-          price,
-          total,
-          costPrice,
-          description,
+    async createStockItem( _, { stockItem: { 
+          product, category, subcategory, suplier, quantity, price, total, costPrice, description,
         },
       }
     ) {
-      const newItem = await db.collection("stock").insertOne({
-        product,
-        category,
-        subcategory,
-        suplier,
-        quantity,
-        price,
-        total,
-        costPrice,
-        description,
+      const newItem = await db.collection("stock").insertOne({ 
+        product, category, subcategory, suplier, quantity, price, total, costPrice, description,
       });
       return newItem;
     },
 
-    async editStockItem(
-      _,
-      {
-        stockItem: {
-          id,
-          product,
-          category,
-          subcategory,
-          suplier,
-          quantity,
-          price,
-          total,
-          costPrice,
-          description,
+    async editStockItem( _, { stockItem: { 
+          id, product, category, subcategory, suplier, quantity, price, total, costPrice, description,
         },
       }
     ) {
       const _id = new BSON.ObjectId(id);
       await db.collection("stoch").updateOne(
-        { _id: _id },
-        {
-          $set: {
-            product,
-            category,
-            subcategory,
-            suplier,
-            quantity,
-            price,
-            total,
-            costPrice,
-            description,
+        { _id: _id }, { $set: { 
+          product, category, subcategory, suplier, quantity, price, total, costPrice, description
           },
         }
       );
@@ -80,7 +39,5 @@ module.exports = {
       await db.collection("stock").deleteOne({ _id: _id });
       return { _id };
     },
-    
-    async 
   },
 };

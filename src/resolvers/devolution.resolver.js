@@ -6,8 +6,8 @@ module.exports = {
       return await db.collection("devolution").insertOne(devolutionInput);
     },
 
-    async transferDevolution(_, {}) {
-      return await db.collection("stock").insertOne();
+    async reverseDevolution(_, {}) {
+      return await db.collection("stock").insertOne({});
     },
   },
 

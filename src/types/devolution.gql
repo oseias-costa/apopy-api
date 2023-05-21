@@ -1,5 +1,5 @@
-module.exports = `
-        type Devolution {
+
+    type Devolution {
         userId: ID
         category: String
         subcategory: String
@@ -35,4 +35,3 @@ module.exports = `
         transferDevolution(devolutionInput : DevolutionInput): Devolution
         reverseDevolution(id: ID): Devolution
     }
-`

@@ -1,4 +1,4 @@
-module.exports = `
+
     type Loss {
         userId: ID
         category: String
@@ -35,4 +35,3 @@ module.exports = `
         transferLoss(transferLoss: LossInput): Loss
         reverseLoss(id: ID): Loss
     }
-`;
