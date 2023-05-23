@@ -10,10 +10,11 @@ const { ConnectedMongoDB } = require("./src/services/mongodb");
 const typeDefs = mergeTypeDefs(typesArray);
 const resolvers = mergeResolvers(resolverFiles);
 const jwt = require("jsonwebtoken");
-const { Console } = require("console");
+
+let server = null
 
 async function StartApolloServer() {
-  const server = new ApolloServer({ typeDefs, resolvers });
+  server = new ApolloServer({ typeDefs, resolvers });
 
   const { url } = await startStandaloneServer(server, {
     context: ({ req }) => {
@@ -50,3 +51,4 @@ async function main() {
 }
 
 main().then(console.log('connect')).catch(err => console.log(err))
+export default server
