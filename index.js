@@ -1,4 +1,4 @@
-const { ApolloServer } = require("@apollo/server");
+const { ApolloServer } = require("apollo-server-lambda");
 // const { ApolloServer } = require("apollo-server-express");
 // const { ApolloServer } = require("saeris/apollo-server-vercel");
 const { startStandaloneServer } = require("@apollo/server/standalone");
@@ -13,19 +13,18 @@ const typesArray = loadFilesSync(path.join(__dirname, "src/types", "**"));
 const typeDefs = mergeTypeDefs(typesArray);
 const resolvers = mergeResolvers(resolverFiles);
 const jwt = require("jsonwebtoken");
-const { Console } = require("console");
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
 
 
-async function StartApolloServer() {
+// async function StartApolloServer() {
   
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 }
-  })
+  // const { url } = await startStandaloneServer(server, {
+  //   listen: { port: 4000 }
+  // })
 
-  console.log(`listen on ${url}`)
+  // console.log(`listen on ${url}`)
   // const { url } = await startStandaloneServer(server, {
   //   context: ({ req }) => {
   //     const token = req.headers.authorization || null;
@@ -53,7 +52,7 @@ async function StartApolloServer() {
   //       🚀 Running ApolloServer
   //       📬 On url: ${url}
   //   `);
-}
+// }
 
 // async function main() {
 //   await ConnectedMongoDB().catch(console.error);
@@ -61,6 +60,11 @@ async function StartApolloServer() {
 // }
 
 // main()
-StartApolloServer()
+// StartApolloServer()
 
-module.exports = server.startInBackgroundHandlingStartupErrorsByLoggingAndFailingAllRequests()
+exports.handler = server.createHandler({
+  cors: {
+    origin: '*',
+    credentials: true
+  }
+})
