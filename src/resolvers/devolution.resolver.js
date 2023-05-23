@@ -1,13 +1,15 @@
 const { db } = require("../services/mongodb");
+const movimentStock  = require('../utils/stock/movimentStock')
+const reverseStockMoviment  = require('../utils/stock/reverseStockMoviment')
 
 module.exports = {
   Mutation: {
     async transferDevolution(_, { devolutionInput }) {
-      return await db.collection("devolution").insertOne(devolutionInput);
+      return await movimentStock(devolutionInput, 'devolution')
     },
 
-    async reverseDevolution(_, {}) {
-      return await db.collection("stock").insertOne({});
+    async reverseDevolution(_, { devolutionInput }) {
+      return await reverseStockMoviment(devolutionInput, 'devolution')
     },
   },
 

@@ -1,6 +1,8 @@
 
     type Sale {
+        _id: ID
         userId: ID
+        stockId: ID
         category: String
         subcategory: String
         product: String
@@ -15,8 +17,10 @@
         date: String
     }
     
-    input SaleReverseInput {
+    input SaleInput {
+        _id: ID
         userId: ID
+        stockId: ID
         category: String
         subcategory: String
         product: String
@@ -33,6 +37,7 @@
     }
     
     type Mutation {
-        reverseSale(saleReverseInput: SaleReverseInput): Sale
+        transferSale(saleInput: SaleInput): Sale
+        reverseSale(saleInput: SaleInput): Sale
     }
 

@@ -1,10 +1,16 @@
 const { db } = require("../services/mongodb");
+const movimentStock  = require('../utils/stock/movimentStock')
+const reverseStockMoviment  = require('../utils/stock/reverseStockMoviment')
 
 module.exports = {
   Mutation: {
-    async reverseSale(_, { saleReverseInput }) {
-      return await db.collection("sales").insertOne(saleReverseInput);
+    async reverseSale(_, { saleInput }) {
+      return await reverseStockMoviment(saleInput, 'sale')
     },
+
+    async transferSale(_, { saleInput }){
+      return await movimentStock(saleInput, 'sale')
+    }
   },
 
   Query: {

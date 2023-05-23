@@ -7,6 +7,7 @@ module.exports = {
       return await db.collection("stock").find({}).toArray();
     },
   },
+  
   Mutation: {
     async createStockItem( _, { stockItem: { 
           product, category, subcategory, suplier, quantity, price, total, costPrice, description,
@@ -19,11 +20,8 @@ module.exports = {
       return newItem;
     },
 
-    async editStockItem( _, { stockItem: { 
-          id, product, category, subcategory, suplier, quantity, price, total, costPrice, description,
-        },
-      }
-    ) {
+    async editStockItem( _, { stockItem: 
+      { id, product, category, subcategory, suplier, quantity, price, total, costPrice, description }, }) {
       const _id = new BSON.ObjectId(id);
       await db.collection("stoch").updateOne(
         { _id: _id }, { $set: { 

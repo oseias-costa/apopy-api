@@ -1,6 +1,8 @@
 
     type Loss {
+        _id: ID
         userId: ID
+        stockId: ID
         category: String
         subcategory: String
         product: String
@@ -14,7 +16,9 @@
     }
     
     input LossInput {
+        _id: ID
         userId: ID
+        stockId: ID
         category: String
         subcategory: String
         product: String

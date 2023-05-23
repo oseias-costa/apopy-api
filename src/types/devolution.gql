@@ -1,5 +1,6 @@
 
     type Devolution {
+        _id: ID
         userId: ID
         category: String
         subcategory: String
@@ -11,9 +12,11 @@
         costPrice: Int
         description: String
         reason: String
+        stockId: ID
     }
     
     input DevolutionInput {
+        _id: ID
         userId: ID
         category: String
         subcategory: String
@@ -25,6 +28,7 @@
         costPrice: Int
         description: String
         reason: String
+        stockId: ID
     }
     
     type Query {
@@ -33,5 +37,5 @@
     
     type Mutation {
         transferDevolution(devolutionInput : DevolutionInput): Devolution
-        reverseDevolution(id: ID): Devolution
+        reverseDevolution(devolutionInput : DevolutionInput): Devolution
     }
