@@ -1,11 +1,12 @@
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
+const { ConnectedMongoDB } = require("./src/services/mongodb");
+
 const { mergeResolvers, mergeTypeDefs } = require("@graphql-tools/merge");
 const { loadFilesSync } = require("@graphql-tools/load-files");
 const path = require("path");
 const resolverFiles = loadFilesSync(path.join(__dirname, "src/resolvers"));
 const typesArray = loadFilesSync(path.join(__dirname, "src/types", "**"));
-const { ConnectedMongoDB } = require("./src/services/mongodb");
 
 const typeDefs = mergeTypeDefs(typesArray);
 const resolvers = mergeResolvers(resolverFiles);
@@ -50,5 +51,4 @@ async function main() {
   return StartApolloServer();
 }
 
-main().then(console.log('connect')).catch(err => console.log(err))
-export default StartApolloServer()
+module.exports = main()
