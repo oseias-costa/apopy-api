@@ -28,20 +28,20 @@ const httpServer = http.createServer(app);
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  //plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 
 async function StartApolloServer() {
   await ConnectedMongoDB();
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
-  });
+  //const { url } = await startStandaloneServer(server, {
+  //listen: { port: 4000 },
+  //});
 
   console.log(`🚀  Server ready at: ${url}`);
-  //await server.start();
-  //app.use("/graphql", cors(), json(), expressMiddleware(server));
+  await server.start();
+  app.use("/graphql", cors(), json(), expressMiddleware(server));
 
-  //await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
-  //console.log(`🚀 Server ready at http://localhost:4000/graphql`);
+  await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+  console.log(`🚀 Server ready at http://localhost:4000/graphql`);
 }
 module.exports = StartApolloServer();
