@@ -51,4 +51,4 @@ async function main() {
 }
 
 main().then(console.log('connect')).catch(err => console.log(err))
-export default server
+export default StartApolloServer()
