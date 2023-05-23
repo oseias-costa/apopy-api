@@ -1,7 +1,9 @@
+module.exports =`#graphql
 
-    type Stock {
+    type Sale {
         _id: ID
         userId: ID
+        stockId: ID
         category: String
         subcategory: String
         product: String
@@ -11,14 +13,15 @@
         total: Int
         costPrice: Int
         description: String
+        profit: Int
+        percentage: Int
+        date: String
     }
-
-    type Query {
-        stock: [Stock]
-    }
-
-    input StockItem {
+    
+    input SaleInput {
+        _id: ID
         userId: ID
+        stockId: ID
         category: String
         subcategory: String
         product: String
@@ -28,12 +31,14 @@
         total: Int
         costPrice: Int
         description: String
-        createAt: String
     }
-
+    
+    type Query {
+        sales: [Sale]
+    }
+    
     type Mutation {
-        createStockItem(stockItem: StockItem): Stock
-        editStockItem(stockItem: StockItem): Stock
-        deleteStockItem(id: ID ): Stock
+        transferSale(saleInput: SaleInput): Sale
+        reverseSale(saleInput: SaleInput): Sale
     }
-
+`

@@ -1,3 +1,4 @@
+module.exports =`#graphql
 
     type Suplier {
         name: String
@@ -22,3 +23,4 @@
         updateSuplier(suplierInput: SuplierInput): Suplier
         deleteSuplier(_id: ID): Suplier
     }
+`

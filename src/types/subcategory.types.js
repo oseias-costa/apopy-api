@@ -1,3 +1,4 @@
+module.exports =`#graphql
 
     type Subcategory {
         name: String
@@ -20,3 +21,4 @@
         updateSubcategory(subcategoryEdit: SubcategoryEdit): Subcategory
         deleteSubcategory(subcategoryEdit: SubcategoryEdit): Subcategory
     }
+`

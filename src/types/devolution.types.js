@@ -1,8 +1,8 @@
+module.exports =`#graphql
 
-    type Loss {
+    type Devolution {
         _id: ID
         userId: ID
-        stockId: ID
         category: String
         subcategory: String
         product: String
@@ -13,12 +13,12 @@
         costPrice: Int
         description: String
         reason: String
+        stockId: ID
     }
     
-    input LossInput {
+    input DevolutionInput {
         _id: ID
         userId: ID
-        stockId: ID
         category: String
         subcategory: String
         product: String
@@ -29,13 +29,15 @@
         costPrice: Int
         description: String
         reason: String
+        stockId: ID
     }
     
     type Query {
-        losses: [Loss]
+        devolutions: [Devolution]
     }
     
     type Mutation {
-        transferLoss(transferLoss: LossInput): Loss
-        reverseLoss(id: ID): Loss
+        transferDevolution(devolutionInput : DevolutionInput): Devolution
+        reverseDevolution(devolutionInput : DevolutionInput): Devolution
     }
+`

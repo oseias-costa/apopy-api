@@ -1,3 +1,4 @@
+module.exports =`#graphql
 
   type Category {
     _id: ID
@@ -27,3 +28,4 @@
       updateCategory(categoryEdit: CategoryEdit): Category
       deleteCategory(categoryEdit: CategoryEdit): Category
   }
+  `

@@ -1,4 +1,4 @@
-
+module.exports =`#graphql
   type Product {
     _id: ID
     name: String
@@ -35,3 +35,4 @@
     updateProduct(productEdit: ProductEdit): Product
     deleteProduct(_id: ID): Product
   }
+`
