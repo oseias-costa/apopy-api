@@ -1,5 +1,6 @@
-const { ApolloServer } = require("apollo-server-lambda");
-// const { ApolloServer } = require("apollo-server-express");
+// const { ApolloServer } = require("apollo-server-lambda");
+const { ApolloServer } = require("apollo-server-express");
+const express = require('express')
 // const { ApolloServer } = require("saeris/apollo-server-vercel");
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const { ConnectedMongoDB } = require("./src/services/mongodb");
@@ -14,10 +15,13 @@ const typeDefs = mergeTypeDefs(typesArray);
 const resolvers = mergeResolvers(resolverFiles);
 const jwt = require("jsonwebtoken");
 
+const app = express()
 const server = new ApolloServer({ typeDefs, resolvers });
 
-
-
+async function StartApolloServer(){
+  await server.start()
+  server.applyMiddleware({ app })
+}
 // async function StartApolloServer() {
   
   // const { url } = await startStandaloneServer(server, {
@@ -60,11 +64,10 @@ const server = new ApolloServer({ typeDefs, resolvers });
 // }
 
 // main()
-// StartApolloServer()
+StartApolloServer()
 
-exports.handler = server.createHandler({
-  cors: {
-    origin: '*',
-    credentials: true
-  }
+app.listen({ port: 4000}, () => {
+  console.log(`
+    🚀 Server ready ate http://localhost:4000${server.graphqlPath}
+  `)
 })
