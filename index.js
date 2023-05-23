@@ -1,7 +1,6 @@
-// const { ApolloServer } = require("apollo-server-lambda");
 const { ApolloServer } = require("apollo-server-express");
-const express = require('express')
-// const { ApolloServer } = require("saeris/apollo-server-vercel");
+const express = require("express");
+
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const { ConnectedMongoDB } = require("./src/services/mongodb");
 
@@ -15,47 +14,48 @@ const typeDefs = mergeTypeDefs(typesArray);
 const resolvers = mergeResolvers(resolverFiles);
 const jwt = require("jsonwebtoken");
 
-const app = express()
+const app = express();
 const server = new ApolloServer({ typeDefs, resolvers });
 
-async function StartApolloServer(){
-  await server.start()
-  server.applyMiddleware({ app })
+async function StartApolloServer() {
+  await ConnectedMongoDB().catch(console.error);
+  await server.start();
+  server.applyMiddleware({ app });
 }
 // async function StartApolloServer() {
-  
-  // const { url } = await startStandaloneServer(server, {
-  //   listen: { port: 4000 }
-  // })
 
-  // console.log(`listen on ${url}`)
-  // const { url } = await startStandaloneServer(server, {
-  //   context: ({ req }) => {
-  //     const token = req.headers.authorization || null;
+// const { url } = await startStandaloneServer(server, {
+//   listen: { port: 4000 }
+// })
 
-  //     if (token) {
-  //       const user = jwt.verify(token, "unsafe");
-  //       return { user };
-  //     } else {
-  //       return { user: null };
-  //     }
-  //     // if (!token)
-  //     // throw new GraphQLError('User is not authenticated', {
-  //     //     extensions: {
-  //     //     code: 'UNAUTHENTICATED',
-  //     //     http: { status: 401 },
-  //     //     },
-  //     // });
-  //     // if(!user) {
-  //     //     throw new GraphQLError('User is not authenticated')
-  //     //  }
-  //   },
-  //   listen: { port: 4000 },
-  // });
-  // console.log(`
-  //       🚀 Running ApolloServer
-  //       📬 On url: ${url}
-  //   `);
+// console.log(`listen on ${url}`)
+// const { url } = await startStandaloneServer(server, {
+//   context: ({ req }) => {
+//     const token = req.headers.authorization || null;
+
+//     if (token) {
+//       const user = jwt.verify(token, "unsafe");
+//       return { user };
+//     } else {
+//       return { user: null };
+//     }
+//     // if (!token)
+//     // throw new GraphQLError('User is not authenticated', {
+//     //     extensions: {
+//     //     code: 'UNAUTHENTICATED',
+//     //     http: { status: 401 },
+//     //     },
+//     // });
+//     // if(!user) {
+//     //     throw new GraphQLError('User is not authenticated')
+//     //  }
+//   },
+//   listen: { port: 4000 },
+// });
+// console.log(`
+//       🚀 Running ApolloServer
+//       📬 On url: ${url}
+//   `);
 // }
 
 // async function main() {
@@ -65,9 +65,9 @@ async function StartApolloServer(){
 
 // main()
 
-app.listen({ port: 4000}, async () => {
-  await StartApolloServer()
+app.listen({ port: 4000 }, async () => {
+  await StartApolloServer();
   console.log(`
-    🚀 Server ready ate http://localhost:4000${server.graphqlPath}
-  `)
-})
+    🚀 Server ready at http://localhost:4000${server.graphqlPath}
+  `);
+});
