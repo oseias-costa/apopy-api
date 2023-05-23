@@ -1,5 +1,4 @@
 const User = require("../models/User");
-const { ApolloError } = require("apollo-server-errors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { db } = require("../services/mongodb");
@@ -11,7 +10,7 @@ module.exports = {
       const oldUser = await db.collection("users").findOne({ email: email });
 
       if (oldUser) {
-        throw new ApolloError("User already registered", "USER_ALREDY_EXIST");
+        console.log("User already registered", "USER_ALREDY_EXIST");
       }
 
       const encryptedPassword = await bcrypt.hash(password, 10);
@@ -65,7 +64,7 @@ module.exports = {
       if (user) {
         await bcrypt.compare(password, user.password).then((res) => {
           if (!res) {
-            throw new ApolloError("Incorrect password", "INCORRECT_PASSWORD");
+            console.log("Incorrect password", "INCORRECT_PASSWORD");
           }
         });
 
@@ -82,7 +81,7 @@ module.exports = {
           token: token,
         };
       } else {
-        throw new ApolloError("Incorrect password", "INCORRECT_PASSWORD");
+        console.log("Incorrect password", "INCORRECT_PASSWORD");
       }
     },
   },
