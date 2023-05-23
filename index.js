@@ -37,7 +37,7 @@ async function StartApolloServer() {
   //listen: { port: 4000 },
   //});
 
-  console.log(`🚀  Server ready at: ${url}`);
+  //console.log(`🚀  Server ready at: ${url}`);
   await server.start();
   app.use("/graphql", cors(), json(), expressMiddleware(server));
 
