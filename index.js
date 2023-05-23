@@ -1,6 +1,7 @@
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const { ConnectedMongoDB } = require("./src/services/mongodb");
+const express = require('express')
 
 const { mergeResolvers, mergeTypeDefs } = require("@graphql-tools/merge");
 const { loadFilesSync } = require("@graphql-tools/load-files");
@@ -51,4 +52,6 @@ async function main() {
   return StartApolloServer();
 }
 
-module.exports = main()
+main()
+
+module.exports = server
