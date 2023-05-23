@@ -64,9 +64,9 @@ async function StartApolloServer(){
 // }
 
 // main()
-StartApolloServer()
 
-app.listen({ port: 4000}, () => {
+app.listen({ port: 4000}, async () => {
+  await StartApolloServer()
   console.log(`
     🚀 Server ready ate http://localhost:4000${server.graphqlPath}
   `)
