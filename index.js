@@ -45,3 +45,5 @@ async function StartApolloServer() {
   console.log(`🚀 Server ready at http://localhost:4000/graphql`);
 }
 module.exports = StartApolloServer();
+
+// https://odd-erin-stingray-tutu.cyclic.app
