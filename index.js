@@ -63,4 +63,4 @@ async function StartApolloServer() {
 // main()
 StartApolloServer()
 
-module.exports = StartApolloServer
+module.exports = server.startInBackgroundHandlingStartupErrorsByLoggingAndFailingAllRequests()
