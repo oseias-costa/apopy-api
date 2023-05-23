@@ -1,5 +1,6 @@
 const express = require("express");
 const { ApolloServer } = require("@apollo/server");
+const { startStandaloneServer } = require("@apollo/server/standalone");
 const { expressMiddleware } = require("@apollo/server/express4");
 const {
   ApolloServerPluginDrainHttpServer,
@@ -27,16 +28,20 @@ const httpServer = http.createServer(app);
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  //plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 
 async function StartApolloServer() {
   await ConnectedMongoDB();
-  await server.start();
-  app.use("/graphql", cors(), json(), expressMiddleware(server));
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: 4000 },
+  });
 
-  await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
-  console.log(`🚀 Server ready at http://localhost:4000/graphql`);
+  console.log(`🚀  Server ready at: ${url}`);
+  //await server.start();
+  //app.use("/graphql", cors(), json(), expressMiddleware(server));
+
+  //await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+  //console.log(`🚀 Server ready at http://localhost:4000/graphql`);
 }
-
-StartApolloServer();
+module.exports = StartApolloServer();
