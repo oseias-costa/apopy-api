@@ -8,6 +8,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "apollo-server-express": "^3.11.1",
     "@apollo/server": "^4.7.1",
     "@graphql-tools/load-files": "6.6.1",
     "@graphql-tools/merge": "8.3.18",

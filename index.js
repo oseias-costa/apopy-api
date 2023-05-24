@@ -1,18 +1,10 @@
 const express = require("express");
-const { ApolloServer } = require("@apollo/server");
-//const { startStandaloneServer } = require("@apollo/server/standalone");
-const { expressMiddleware } = require("@apollo/server/express4");
-const {
-  ApolloServerPluginDrainHttpServer,
-} = require("@apollo/server/plugin/drainHttpServer");
+const path = require("path");
+const { ApolloServer } = require("apollo-server-express");
 const { ConnectedMongoDB } = require("./src/services/mongodb");
 
 //const dotenv = require('dotenv')
 //dotenv.config()
-const http = require("http");
-const path = require("path");
-const cors = require("cors");
-const { json } = require("body-parser");
 
 const { mergeResolvers, mergeTypeDefs } = require("@graphql-tools/merge");
 const { loadFilesSync } = require("@graphql-tools/load-files");
@@ -24,27 +16,26 @@ const typeDefs = mergeTypeDefs(typesArray);
 const resolvers = mergeResolvers(resolverFiles);
 
 const app = express();
-const httpServer = http.createServer(app);
-const server = new ApolloServer({
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
-  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  introspection: true,
+  playground: true,
 });
 
 async function StartApolloServer() {
   await ConnectedMongoDB();
-  //const { url } = await startStandaloneServer(server, {
-  //listen: { port: 4000 },
-  //});
+  await apolloServer.start();
 
-  //console.log(`🚀  Server ready at: ${url}`);
-  await server.start();
-  app.use("/graphql", cors(), json(), expressMiddleware(server));
-
-  await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
-  console.log(`🚀 Server ready at http://localhost:4000/graphql`);
+  apolloServer.applyMiddleware({ app });
 }
 
-module.exports = StartApolloServer();
+app.listen(4000, async function () {
+  await apolloServer;
+  console.log(`gql path is http://localhost:4000${apolloServer.graphqlPath}`);
+});
 
-// https://odd-erin-stingray-tutu.cyclic.app
+module.exports = StartApolloServer();
