@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const cors = require('cors')
 const { ApolloServer } = require("apollo-server-express");
 const { ConnectedMongoDB } = require("./src/services/mongodb");
 
@@ -16,26 +17,27 @@ const typeDefs = mergeTypeDefs(typesArray);
 const resolvers = mergeResolvers(resolverFiles);
 
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-const apolloServer = new ApolloServer({
-  typeDefs,
-  resolvers,
-  introspection: true,
-  playground: true,
-});
 
 async function StartApolloServer() {
+  
+  const apolloServer = new ApolloServer({
+    typeDefs,
+    resolvers,
+    introspection: true,
+    playground: true,
+  });
+  
   await ConnectedMongoDB();
   await apolloServer.start();
-
+  
+  app.use(cors())
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
   apolloServer.applyMiddleware({ app });
+
+  app.listen(4000, function (){
+    console.log(`gql path is http://localhost:4000${apolloServer.graphqlPath}`);
+  });
 }
 
-app.listen(4000, async function () {
-  await apolloServer;
-  console.log(`gql path is http://localhost:4000${apolloServer.graphqlPath}`);
-});
-
-module.exports = StartApolloServer();
+StartApolloServer();
