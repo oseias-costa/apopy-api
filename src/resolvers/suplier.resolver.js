@@ -30,7 +30,8 @@ module.exports = {
 
     async deleteSuplier(_, { _id }) {
       const id = new BSON.ObjectId(_id)
-      return await db.collection('supliers').deleteOne({ _id: id});
+      await db.collection('supliers').deleteOne({ _id: id});
+      return { _id: id} 
     },
   },
   // Suplier: {

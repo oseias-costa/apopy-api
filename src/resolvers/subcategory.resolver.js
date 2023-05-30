@@ -28,7 +28,7 @@ module.exports = {
         { _id: id }, { $pull: { subcategory:  name }})
         console.log(deleteDoc)
 
-      return { name: 'deleted' };
+      return { _id: id };
     },
 
 

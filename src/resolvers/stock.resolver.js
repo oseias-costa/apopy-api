@@ -35,7 +35,7 @@ module.exports = {
     async deleteStockItem(_, { id }) {
       const _id = new BSON.ObjectId(id);
       await db.collection("stock").deleteOne({ _id: _id });
-      return { _id };
+      return { _id: _id };
     },
   },
 };

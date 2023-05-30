@@ -24,7 +24,7 @@ module.exports = {
       const id = new BSON.ObjectId(_id);
 
       await db.collection('categories').deleteOne({ _id: id })
-      return { name: 'deleted'}
+      return { _id: id}
     }
   },
 

@@ -29,7 +29,8 @@ module.exports = {
         
         async deleteProduct (_, { _id }){
             const id = new BSON.ObjectId(_id)
-            return await db.collection('products').deleteOne({ _id: id})
+            await db.collection('products').deleteOne({ _id: id})
+            return { _id: id } 
         },
     },
 
