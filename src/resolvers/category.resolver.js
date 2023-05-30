@@ -13,19 +13,21 @@ module.exports = {
       return await db.collection("categories").findOne({ _id: _id });
     },
 
-    async updateCategory(_, { categoryEdit: { name, _id }}){
+    async updateCategory(_, { categoryEdit: { name, _id } }) {
       const id = new BSON.ObjectId(_id);
 
-      await db.collection('categories').updateOne({ _id: id }, { $set: { name: name }})
-      return { name: name }
+      await db
+        .collection("categories")
+        .updateOne({ _id: id }, { $set: { name: name } });
+      return { _id: id, name: name };
     },
 
-    async deleteCategory(_, { categoryEdit: { _id }}){
+    async deleteCategory(_, { categoryEdit: { _id } }) {
       const id = new BSON.ObjectId(_id);
 
-      await db.collection('categories').deleteOne({ _id: id })
-      return { _id: id}
-    }
+      await db.collection("categories").deleteOne({ _id: id });
+      return { _id: id };
+    },
   },
 
   Query: {
