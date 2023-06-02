@@ -12,7 +12,9 @@ module.exports = {
       const product = await db
         .collection("products")
         .insertOne({ name, category, subcategory, suplier, userId: _userId });
-      return product;
+
+      const _id = new BSON.ObjectId(product.insertedId);
+      return await db.collection("products").findOne({ _id: _id });
     },
 
     async updateProduct(
