@@ -16,11 +16,7 @@ module.exports = {
   Mutation: {
     async createSuplier(_, { suplierInput: { name, userId } }) {
       const nid = new BSON.ObjectId(userId);
-      const save = await db
-        .collection("supliers")
-        .insertOne({ name, userId: nid });
-      console.log(save);
-      return { name, userId };
+      return await db.collection("supliers").insertOne({ name, userId: nid });
     },
 
     async updateSuplier(_, { suplierInput: { name, _id } }) {
