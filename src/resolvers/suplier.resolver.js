@@ -21,7 +21,7 @@ module.exports = {
         .insertOne({ name, userId: nid });
 
       const _id = new BSON.ObjectId(suplier.insertedId);
-      return await db.collection("categories").findOne({ _id: _id });
+      return await db.collection("supliers").findOne({ _id: _id });
     },
 
     async updateSuplier(_, { suplierInput: { name, _id } }) {
