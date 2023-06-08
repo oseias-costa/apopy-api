@@ -5,9 +5,11 @@ module.exports = {
   Mutation: {
     async createSubcategory(_, { subcategoryInput: { name, category } }) {
       const id = new BSON.ObjectId(category);
-      return await db
+      await db
         .collection("categories")
         .updateOne({ _id: id }, { $push: { subcategory: name } });
+
+      return db.collection("categories").findOne({ _id: id });
     },
 
     async updateSubcategory(
