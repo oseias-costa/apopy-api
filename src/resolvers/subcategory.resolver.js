@@ -24,7 +24,7 @@ module.exports = {
           { _id: id, subcategory: name },
           { $set: { "subcategory.$": newName } }
         );
-      return { _id: id, name: newName };
+      return db.collection("categories").findOne({ _id: id });
     },
 
     async deleteSubcategory(_, { subcategoryEdit: { name, category } }) {
@@ -35,7 +35,7 @@ module.exports = {
         .updateOne({ _id: id }, { $pull: { subcategory: name } });
       console.log(deleteDoc);
 
-      return { _id: id };
+      return db.collection("categories").findOne({ _id: id });
     },
   },
 };
