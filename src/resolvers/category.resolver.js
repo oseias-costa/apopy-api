@@ -3,8 +3,8 @@ const { BSON } = require("mongodb");
 
 module.exports = {
   Mutation: {
-    async createCategory(_, { categoryInput: { name, userId } }) {
-      const nid = new BSON.ObjectId(userId);
+    async createCategory(_, { categoryInput: { name } }, { user_id }) {
+      const nid = new BSON.ObjectId(user_id);
       const category = await db
         .collection("categories")
         .insertOne({ name, userId: nid });
@@ -36,8 +36,8 @@ module.exports = {
       return await db.collection("categories").findOne({ _id: nid });
     },
 
-    async categories(_, { userId }) {
-      const id = new BSON.ObjectId(userId);
+    async categories(_, { userId }, { user_id }) {
+      const id = new BSON.ObjectId(user_id);
       return await db.collection("categories").find({ userId: id }).toArray();
     },
   },
