@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const cors = require('cors')
+const jwt = require("jsonwebtoken");
 const { ApolloServer } = require("apollo-server-express");
 const { ConnectedMongoDB } = require("./src/services/mongodb");
 
@@ -25,6 +26,20 @@ async function StartApolloServer() {
     resolvers,
     introspection: true,
     playground: true,
+    context: async({req, res}) => {
+      const authHeader = req.headers.authorization
+
+      const token = authHeader.split(' ')[1] || ''
+      const user = await jwt.verify(token, "unsafe", (error, decoded) => {
+        if(error){
+          return console.log(error)
+        }
+
+        return decoded
+      })
+
+      return user
+    }
   });
   
   await ConnectedMongoDB();

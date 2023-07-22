@@ -85,14 +85,15 @@ module.exports = {
     },
   },
   Query: {
-    async users(_, __, context) {
+    async users(_, __, ) {
       // const verify = context.user !== null ? await User.find() : null;
       // console.log(context)
       // return verify;
       return await db.collection("users").find({}).toArray();
     },
-    async user(_, { id }) {
-      const nid = new BSON.ObjectId(id);
+    async user(_, { id }, {user_id}) {
+
+      const nid = new BSON.ObjectId(user_id);
       return await db.collection("users").findOne({ _id: nid });
     },
   },

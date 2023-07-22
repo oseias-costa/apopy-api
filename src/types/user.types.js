@@ -24,12 +24,11 @@ module.exports =`#graphql
   
   type Query {
     users: [User]
-    user(id: ID!): User
+    user: User
   }
     
   type Mutation {
     registerUser(registerInput: RegisterInput): User
     loginUser(loginInput: LoginInput): User
   }
-  #6451a787de4c08d54ed8da35 userId
 `
