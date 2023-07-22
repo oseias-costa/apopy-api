@@ -6,9 +6,10 @@ module.exports = {
   Mutation: {
     async createProduct(
       _,
-      { productInput: { name, category, subcategory, suplier, userId } }
+      { productInput: { name, category, subcategory, suplier } },
+      { user_id }
     ) {
-      const _userId = new BSON.ObjectId(userId);
+      const _userId = new BSON.ObjectId(user_id);
       const product = await db
         .collection("products")
         .insertOne({ name, category, subcategory, suplier, userId: _userId });
