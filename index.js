@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const cors = require('cors')
+const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const { ApolloServer } = require("apollo-server-express");
 const { ConnectedMongoDB } = require("./src/services/mongodb");
@@ -20,37 +20,38 @@ const resolvers = mergeResolvers(resolverFiles);
 const app = express();
 
 async function StartApolloServer() {
-  
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
     introspection: true,
     playground: true,
-    context: async({req, res}) => {
-      const authHeader = req.headers.authorization
+    context: async ({ req, res }) => {
+      const authHeader = req.headers.authorization;
 
-      const token = authHeader.split(' ')[1] || ''
+      if (!authHeader) return null;
+
+      const token = authHeader.split(" ")[1] || "";
       const user = await jwt.verify(token, "unsafe", (error, decoded) => {
-        if(error){
-          return console.log(error)
+        if (error) {
+          return console.log(error);
         }
 
-        return decoded
-      })
+        return decoded;
+      });
 
-      return user
-    }
+      return user;
+    },
   });
-  
+
   await ConnectedMongoDB();
   await apolloServer.start();
-  
-  app.use(cors())
+
+  app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   apolloServer.applyMiddleware({ app });
 
-  app.listen(4000, function (){
+  app.listen(4000, function () {
     console.log(`gql path is http://localhost:4000${apolloServer.graphqlPath}`);
   });
 }
