@@ -1,4 +1,4 @@
-module.exports =`#graphql
+module.exports = `#graphql
 
   type Category {
     _id: ID
@@ -8,7 +8,7 @@ module.exports =`#graphql
   }
   
   type Query {
-    categories(userId: ID!): [Category]
+    categories: [Category]
     category(id: ID!): Category
   }
     
@@ -28,4 +28,4 @@ module.exports =`#graphql
       updateCategory(categoryEdit: CategoryEdit): Category
       deleteCategory(categoryEdit: CategoryEdit): Category
   }
-  `
+  `;

@@ -36,7 +36,7 @@ module.exports = {
       return await db.collection("categories").findOne({ _id: nid });
     },
 
-    async categories(_, { userId }, { user_id }) {
+    async categories(_, _, { user_id }) {
       const id = new BSON.ObjectId(user_id);
       return await db.collection("categories").find({ userId: id }).toArray();
     },
