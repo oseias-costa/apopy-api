@@ -1,6 +1,5 @@
 const { db } = require("../services/mongodb");
-const { BSON, Db } = require("mongodb");
-const subcategoryResolver = require("./subcategory.resolver");
+const { BSON } = require("mongodb");
 
 module.exports = {
   Mutation: {
@@ -30,7 +29,6 @@ module.exports = {
           $set: { name, category, subcategory, suplier },
         }
       );
-      console.log(updateProduct);
 
       return { _id: id, name, category, subcategory, suplier };
     },
@@ -43,8 +41,9 @@ module.exports = {
   },
 
   Query: {
-    async products() {
-      return await db.collection("products").find({}).toArray();
+    async products(parent, args, { user_id }) {
+      const _userId = new BSON.ObjectId(user_id);
+      return await db.collection("products").find({userId: _userId}).toArray();
     },
   },
 };
