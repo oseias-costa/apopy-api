@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { db } = require("../services/mongodb");
 const { BSON } = require("mongodb");
+const { GraphQLError } = require("graphql");
 
 module.exports = {
   Mutation: {
@@ -59,29 +60,42 @@ module.exports = {
 
     async loginUser(_, { loginInput: { email, password } }) {
       const user = await db.collection("users").findOne({ email: email });
+      let verify = false
 
       if (user) {
         await bcrypt.compare(password, user.password).then((res) => {
-          if (!res) {
-            console.log("Incorrect password", "INCORRECT_PASSWORD");
+          
+          if (res) {
+            verify = true
+          } else {
+            throw new GraphQLError('Invalid Email or Password', {
+              extentions: {
+                code: 'FORBIDDEN'
+              }
+            })
+            
           }
         });
 
-        const token = jwt.sign({ user_id: user._id, email }, "unsafe", {
-          expiresIn: "2h",
-        });
-
-        user.token = token;
-        return {
-          _id: user._id,
-          email: user.email,
-          name: user.name,
-          phone: user.phone,
-          token: token,
-        };
       } else {
-        console.log("Incorrect password", "INCORRECT_PASSWORD");
+        return console.log("Incorrect password", "INCORRECT_PASSWORD");
       }
+
+      const token = jwt.sign({ user_id: user._id, email }, "unsafe", {
+        expiresIn: "2h",
+      });
+
+      user.token = token;
+
+      const userVerify = {
+        _id: user._id,
+        email: user.email,
+        name: user.name,
+        phone: user.phone,
+        token: token,
+      };
+
+      return verify ? userVerify : null
     },
   },
   Query: {
