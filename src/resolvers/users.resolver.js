@@ -28,6 +28,16 @@ module.exports = {
         })
       }
 
+      const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      const verifyEmail = email.match(emailRegex)
+      if (!verifyEmail) {
+        throw new GraphQLError('Email is not valid', {
+          extentions: {
+            code: 'FORBIDDEN'
+          }
+        })
+      }
+
       const oldUser = await db.collection("users").findOne({ email: email });
       if (oldUser) {
         throw new GraphQLError('Email already registered', {
@@ -64,8 +74,8 @@ module.exports = {
       });
       user.token = token;
 
-      const verifyAll = Boolean(nameVerify) && Boolean(phoneVerify) && passwordVerify && oldUser === null
-      
+      const verifyAll = Boolean(nameVerify) && Boolean(phoneVerify) && Boolean(verifyEmail) && oldUser === null && passwordVerify 
+     
       return verifyAll? { ...newUser, token } : null
     },
 
