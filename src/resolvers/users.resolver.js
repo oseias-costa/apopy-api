@@ -17,20 +17,20 @@ module.exports = {
           }
         })
       }
-      
-      const oldUser = await db.collection("users").findOne({ email: email });
-      if (oldUser) {
-        throw new GraphQLError('Email already registered', {
+
+      const phoneRegex = /^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)(?:((?:9\s?\d|[2-9])\d{3})\-?(\d{4}))$/
+      const phoneVerify = phone.match(phoneRegex)
+      if (!phoneVerify) {
+        throw new GraphQLError('Phone dont match', {
           extentions: {
             code: 'FORBIDDEN'
           }
         })
       }
 
-      const phoneRegex = /^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)(?:((?:9\s?\d|[2-9])\d{3})\-?(\d{4}))$/
-      const phoneVerify = phone.match(phoneRegex)
-      if (!phoneVerify) {
-        throw new GraphQLError('Phone dont match', {
+      const oldUser = await db.collection("users").findOne({ email: email });
+      if (oldUser) {
+        throw new GraphQLError('Email already registered', {
           extentions: {
             code: 'FORBIDDEN'
           }
@@ -65,7 +65,7 @@ module.exports = {
       user.token = token;
 
       const verifyAll = Boolean(nameVerify) && Boolean(phoneVerify) && passwordVerify && oldUser === null
-  
+      
       return verifyAll? { ...newUser, token } : null
     },
 
