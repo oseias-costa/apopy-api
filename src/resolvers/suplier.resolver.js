@@ -3,8 +3,9 @@ const { BSON } = require("mongodb");
 
 module.exports = {
   Query: {
-    async supliers() {
-      return db.collection("supliers").find({}).toArray();
+    async supliers(_, {}, { user_id }) {
+      const id = new BSON.ObjectId(user_id);
+      return db.collection("supliers").find({ userId: id }).toArray();
     },
 
     async suplier(_, { _id }) {
