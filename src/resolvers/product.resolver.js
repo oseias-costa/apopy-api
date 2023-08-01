@@ -43,8 +43,9 @@ module.exports = {
   },
 
   Query: {
-    async products() {
-      return await db.collection("products").find({}).toArray();
+    async products(_, args, { user_id }) {
+      const id = new BSON(user_id);
+      return await db.collection("products").find({ userId: id }).toArray();
     },
   },
 };
