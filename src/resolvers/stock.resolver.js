@@ -5,38 +5,89 @@ module.exports = {
   Query: {
     async stock(parent, args, { user_id }) {
       const _userId = new BSON.ObjectId(user_id);
-      return await db.collection("stock").find({userId: _userId}).toArray();
+      return await db.collection("stock").find({ userId: _userId }).toArray();
     },
   },
-  
-  Mutation: {
-    async createStockItem( _, { stockItem: { 
-          product, category, subcategory, suplier, quantity, price, total, costPrice, description,
-        }, }, { user_id }
-    ) {
 
+  Mutation: {
+    async createStockItem(
+      _,
+      {
+        stockItem: {
+          product,
+          category,
+          subcategory,
+          suplier,
+          quantity,
+          price,
+          total,
+          costPrice,
+          description,
+        },
+      },
+      { user_id }
+    ) {
       const _userId = new BSON.ObjectId(user_id);
-      const newItem = await db.collection("stock").insertOne({ 
-        product, category, subcategory, suplier, quantity, price, total, costPrice, description, userId: _userId
+      const newStockItem = await db.collection("stock").insertOne({
+        product,
+        category,
+        subcategory,
+        suplier,
+        quantity,
+        price,
+        total,
+        costPrice,
+        description,
+        userId: _userId,
       });
-      return newItem;
+
+      return await db
+        .collection("stock")
+        .findOne({ _id: newStockItem.insertedId });
     },
 
-    async editStockItem( _, { stockItem: 
-      { id, product, category, subcategory, suplier, quantity, price, total, costPrice, description }, }) {
-      const _id = new BSON.ObjectId(id);
-      await db.collection("stoch").updateOne(
-        { _id: _id }, { $set: { 
-          product, category, subcategory, suplier, quantity, price, total, costPrice, description
+    async editStockItem(
+      _,
+      {
+        stockItem: {
+          _id,
+          product,
+          category,
+          subcategory,
+          suplier,
+          quantity,
+          price,
+          total,
+          costPrice,
+          description,
+        },
+      }
+    ) {
+      const stockId = new BSON.ObjectId(_id);
+      const updateStockItem = await db.collection("stock").updateOne(
+        { _id: stockId },
+        {
+          $set: {
+            product,
+            category,
+            subcategory,
+            suplier,
+            quantity,
+            price,
+            total,
+            costPrice,
+            description,
           },
         }
       );
-      return stockItem;
+
+      return await db.collection("stock").findOne({ _id: stockId });
     },
 
     async deleteStockItem(_, { id }) {
       const _id = new BSON.ObjectId(id);
       await db.collection("stock").deleteOne({ _id: _id });
+
       return { _id: _id };
     },
   },

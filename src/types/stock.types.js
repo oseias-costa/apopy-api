@@ -1,4 +1,4 @@
-module.exports =`#graphql
+module.exports = `#graphql
 
     type Stock {
         _id: ID
@@ -19,6 +19,7 @@ module.exports =`#graphql
     }
 
     input StockItem {
+        _id: ID
         userId: ID
         category: String
         subcategory: String
@@ -37,4 +38,4 @@ module.exports =`#graphql
         editStockItem(stockItem: StockItem): Stock
         deleteStockItem(id: ID ): Stock
     }
-`
+`;
