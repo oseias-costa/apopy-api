@@ -14,8 +14,9 @@ module.exports = {
   },
 
   Query: {
-    async sales() {
-      return await db.collection("sale").find({}).toArray();
+    async sales(parent, args, { user_id }) {
+      const id = new BSON.ObjectId(user_id);
+      return await db.collection("sale").find({userId: id}).toArray();
     },
   },
 };

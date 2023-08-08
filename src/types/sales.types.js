@@ -1,4 +1,4 @@
-module.exports =`#graphql
+module.exports = `#graphql
 
     type Sale {
         _id: ID
@@ -31,6 +31,9 @@ module.exports =`#graphql
         total: Int
         costPrice: Int
         description: String
+        profit: Int
+        percentage: Int
+        date: String
     }
     
     type Query {
@@ -41,4 +44,4 @@ module.exports =`#graphql
         transferSale(saleInput: SaleInput): Sale
         reverseSale(saleInput: SaleInput): Sale
     }
-`
+`;
