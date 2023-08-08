@@ -9,8 +9,8 @@ module.exports = {
       return await reverseStockMoviment(saleInput, "sale");
     },
 
-    async transferSale(_, { saleInput }) {
-      return await movimentStock(saleInput, "sale");
+    async transferSale(_, { saleInput }, { user_id }) {
+      return await movimentStock(saleInput, "sale", user_id);
     },
   },
 
