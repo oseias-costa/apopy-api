@@ -2,15 +2,18 @@ const { db } = require("../../services/mongodb");
 const { BSON } = require("mongodb");
 
 async function movimentStock(ArgsInput, path, user_id) {
+  console.log("userid", typeof user_id);
   const stockItemId = new BSON.ObjectId(ArgsInput.stockId);
   const userId = new BSON.ObjectId(user_id);
+  const today = new Date();
+
   const stockItem = await db.collection("stock").findOne({ _id: stockItemId });
 
   const decreaseCalc = (await stockItem.quantity) - ArgsInput.quantity;
 
   if (decreaseCalc === 0) {
     await db.collection(path).insertOne({
-      userId: userId,
+      userId: user_id,
       stockId: stockItemId,
       category: ArgsInput.category,
       subcategory: ArgsInput.subcategory,
@@ -23,11 +26,26 @@ async function movimentStock(ArgsInput, path, user_id) {
       description: ArgsInput.description,
       profit: ArgsInput.profit,
       percentage: ArgsInput.percentage,
-      date: new Date(),
+      date: String(today.getDate()),
     });
     await db.collection("stock").deleteOne({ _id: stockItemId });
   } else if (decreaseCalc > 0) {
-    await db.collection(path).insertOne(ArgsInput);
+    await db.collection(path).insertOne({
+      userId: user_id,
+      stockId: stockItemId,
+      category: ArgsInput.category,
+      subcategory: ArgsInput.subcategory,
+      product: ArgsInput.product,
+      suplier: ArgsInput.suplier,
+      quantity: ArgsInput.quantity,
+      price: ArgsInput.price,
+      total: ArgsInput.total,
+      costPrice: ArgsInput.costPrice,
+      description: ArgsInput.description,
+      profit: ArgsInput.profit,
+      percentage: ArgsInput.percentage,
+      date: String(today.getDate()),
+    });
     await db.collection("stock").updateOne(
       { _id: stockItemId },
       {

@@ -9,15 +9,14 @@ module.exports = {
       return await reverseStockMoviment(saleInput, "sale");
     },
 
-    async transferSale(_, { saleInput }, { user_id }) {
-      return await movimentStock(saleInput, "sale", user_id);
+    async transferSale(_, { saleInputCreate }, { user_id }) {
+      return await movimentStock(saleInputCreate, "sale", user_id);
     },
   },
 
   Query: {
     async sales(parent, args, { user_id }) {
-      const id = new BSON.ObjectId(user_id);
-      return await db.collection("sale").find({ userId: id }).toArray();
+      return await db.collection("sale").find({ userId: user_id }).toArray();
     },
   },
 };

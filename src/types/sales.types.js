@@ -2,7 +2,7 @@ module.exports = `#graphql
 
     type Sale {
         _id: ID
-        userId: ID
+        userId: String
         stockId: ID
         category: String
         subcategory: String
@@ -15,11 +15,11 @@ module.exports = `#graphql
         description: String
         profit: Int
         percentage: Int
-        date: String
+        createAt: String
     }
     
     input SaleInputCreate {
-        userId: ID
+        userId: String
         stockId: ID
         category: String
         subcategory: String
@@ -32,12 +32,12 @@ module.exports = `#graphql
         description: String
         profit: Int
         percentage: Int
-        date: String
+        createAt: String
     }
 
     input SaleInput {
         _id: ID
-        userId: ID
+        userId: String
         stockId: ID
         category: String
         subcategory: String
@@ -58,7 +58,7 @@ module.exports = `#graphql
     }
     
     type Mutation {
-        transferSale(saleInput: SaleInputCreate): Sale
+        transferSale(saleInputCreate: SaleInputCreate): Sale
         reverseSale(saleInput: SaleInput): Sale
     }
 `;
