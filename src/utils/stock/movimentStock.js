@@ -26,7 +26,7 @@ async function movimentStock(ArgsInput, path, user_id) {
       description: ArgsInput.description,
       profit: ArgsInput.profit,
       percentage: ArgsInput.percentage,
-      date: String(today.getDate()),
+      date: ArgsInput.date,
     });
     await db.collection("stock").deleteOne({ _id: stockItemId });
   } else if (decreaseCalc > 0) {
@@ -44,7 +44,7 @@ async function movimentStock(ArgsInput, path, user_id) {
       description: ArgsInput.description,
       profit: ArgsInput.profit,
       percentage: ArgsInput.percentage,
-      date: String(today.getDate()),
+      date: ArgsInput.date,
     });
     await db.collection("stock").updateOne(
       { _id: stockItemId },

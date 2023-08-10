@@ -14,28 +14,11 @@ module.exports = `#graphql
         costPrice: Int
         description: String
         profit: Int
-        percentage: Int
-        createAt: String
-    }
-    
-    input SaleInputCreate {
-        userId: String
-        stockId: ID
-        category: String
-        subcategory: String
-        product: String
-        suplier: String
-        quantity: Int
-        price: Int
-        total: Int
-        costPrice: Int
-        description: String
-        profit: Int
-        percentage: Int
-        createAt: String
+        percentage: Float
+        date: String
     }
 
-    input SaleInput {
+    input SaleInputTransfer {
         _id: ID
         userId: String
         stockId: ID
@@ -49,7 +32,7 @@ module.exports = `#graphql
         costPrice: Int
         description: String
         profit: Int
-        percentage: Int
+        percentage: Float
         date: String
     }
     
@@ -58,7 +41,7 @@ module.exports = `#graphql
     }
     
     type Mutation {
-        transferSale(saleInputCreate: SaleInputCreate): Sale
-        reverseSale(saleInput: SaleInput): Sale
+        transferSale(saleInputTransfer: SaleInputTransfer): Sale
+        reverseSale(saleInputTransfer: SaleInputTransfer): Sale
     }
 `;
