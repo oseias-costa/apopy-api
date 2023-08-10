@@ -5,12 +5,12 @@ const { BSON } = require("mongodb");
 
 module.exports = {
   Mutation: {
-    async reverseSale(_, { saleInput }) {
-      return await reverseStockMoviment(saleInput, "sale");
+    async reverseSale(_, { saleInputTransfer }) {
+      return await reverseStockMoviment(saleInputTransfer, "sale");
     },
 
-    async transferSale(_, { saleInputCreate }, { user_id }) {
-      return await movimentStock(saleInputCreate, "sale", user_id);
+    async transferSale(_, { saleInputTransfer }, { user_id }) {
+      return await movimentStock(saleInputTransfer, "sale", user_id);
     },
   },
 
