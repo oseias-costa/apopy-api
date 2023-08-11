@@ -16,7 +16,9 @@ module.exports = {
 
   Query: {
     async sales(parent, args, { user_id }) {
-      return await db.collection("sale").find({ userId: user_id }).toArray();
+      const id = new BSON.ObjectId(user_id)
+
+      return await db.collection("sale").find({ userId: id }).toArray();
     },
   },
 };
