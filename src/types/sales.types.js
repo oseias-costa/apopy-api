@@ -35,6 +35,20 @@ module.exports = `#graphql
         percentage: Float
         date: String
     }
+
+    type Stock {
+        _id: ID
+        userId: ID
+        category: String
+        subcategory: String
+        product: String
+        suplier: String
+        quantity: Int
+        price: Int
+        total: Int
+        costPrice: Int
+        description: String
+    }
     
     type Query {
         sales: [Sale]
@@ -42,6 +56,6 @@ module.exports = `#graphql
     
     type Mutation {
         transferSale(saleInputTransfer: SaleInputTransfer): Sale
-        reverseSale(saleInputTransfer: SaleInputTransfer): Sale
+        reverseSale(saleInputTransfer: SaleInputTransfer): Stock
     }
 `;

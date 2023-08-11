@@ -9,8 +9,9 @@ async function reverseStockMoviment(ArgsInput, path){
       const devolutionItemId = new BSON.ObjectId(ArgsInput._id)
   
       await db.collection(path).deleteOne({ _id: devolutionItemId})
-      return await db.collection('stock').updateOne({ _id: stockItemId }, 
+      await db.collection('stock').updateOne({ _id: stockItemId }, 
         {$inc: { quantity: ArgsInput.quantity, total: (ArgsInput.quantity * ArgsInput.price)}})
+      return await db.collection('stock').findOne({ _id: stockItem })
   
     } else {
       const reverseMoviment = {
@@ -27,7 +28,8 @@ async function reverseStockMoviment(ArgsInput, path){
       }
   
       await db.collection(path).deleteOne({ _id: devolutionItemId})
-      return await db.collection('stock').insertOne(reverseMoviment)
+      const newSotck = await db.collection('stock').insertOne(reverseMoviment)
+      return await db.collection('stock').findOne({ _id: newSotck.insertedId })
     }
   
   }
