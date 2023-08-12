@@ -30,7 +30,7 @@ async function movimentStock(ArgsInput, path, user_id) {
       {
         $inc: {
           quantity: -ArgsInput.quantity,
-          total: -(ArgsInput.quantity * ArgsInput.price),
+          total: -(ArgsInput.quantity * ArgsInput.costPrice),
         },
       }
     );

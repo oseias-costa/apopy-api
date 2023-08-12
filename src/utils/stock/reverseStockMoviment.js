@@ -7,7 +7,7 @@ async function reverseStockMoviment(ArgsInput, path){
   
     if(stockItem){
       const devolutionItemId = new BSON.ObjectId(ArgsInput._id)
-      const total = ArgsInput.quantity * ArgsInput.price
+      const total = ArgsInput.quantity * ArgsInput.costPrice
 
       await db.collection(path).deleteOne({ _id: devolutionItemId})
       const updateStock = await db.collection('stock').updateOne({ _id: stockItemId }, 
