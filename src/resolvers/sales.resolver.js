@@ -18,6 +18,10 @@ module.exports = {
     async sales(parent, args, { user_id }) {
       const id = new BSON.ObjectId(user_id)
 
+      const filterCategory = args.category ? { category: args.category } : null
+      const filterSubcategory = args.subcategory ? { subcategory: args.subcategory } : null
+      const filterSuplier = args.suplier ? { suplier: args.suplier } : null
+
       return await db.collection("sale").find({ userId: id }).toArray();
     },
   },

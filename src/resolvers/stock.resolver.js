@@ -5,7 +5,11 @@ module.exports = {
   Query: {
     async stock(parent, args, { user_id }) {
       const _userId = new BSON.ObjectId(user_id);
-      return await db.collection("stock").find({ userId: _userId }).toArray();
+
+      // return await db.collection("stock").find({ userId: _userId }).toArray();
+      return await db.collection("stock").aggregate([
+        { $match: { userId: _userId }}
+      ]).toArray();
     },
   },
 
