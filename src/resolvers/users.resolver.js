@@ -69,7 +69,7 @@ module.exports = {
       const _id = createUser.insertedId;
       const newUser = await db.collection("users").findOne({ _id: _id });
 
-      const token = jwt.sign({ user_id: newUser._id, email }, "unsafe", {
+      const token = jwt.sign({ user_id: newUser._id, email }, `${process.env.SECRET_PASSWORD}`, {
         expiresIn: "2h",
       });
       user.token = token;
@@ -103,7 +103,7 @@ module.exports = {
         return console.log("Incorrect password", "INCORRECT_PASSWORD");
       }
 
-      const token = jwt.sign({ user_id: user._id, email }, "unsafe", {
+      const token = jwt.sign({ user_id: user._id, email }, `${process.env.SECRET_PASSWORD}`, {
         expiresIn: "2h",
       });
 

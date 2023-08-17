@@ -1,12 +1,12 @@
 const express = require("express");
+const dotenv = require('dotenv')
+dotenv.config()
 const path = require("path");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const { ApolloServer } = require("apollo-server-express");
 const { ConnectedMongoDB } = require("./src/services/mongodb");
-
-//const dotenv = require('dotenv')
-//dotenv.config()
+const app = express();
 
 const { mergeResolvers, mergeTypeDefs } = require("@graphql-tools/merge");
 const { loadFilesSync } = require("@graphql-tools/load-files");
@@ -17,9 +17,9 @@ const typesArray = loadFilesSync(path.join(__dirname, "src/types"));
 const typeDefs = mergeTypeDefs(typesArray);
 const resolvers = mergeResolvers(resolverFiles);
 
-const app = express();
 
 async function StartApolloServer() {
+  console.log(`${process.env.SECRET_PASSWORD}`)
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
@@ -31,7 +31,7 @@ async function StartApolloServer() {
       if (!authHeader) return null;
 
       const token = authHeader.split(" ")[1] || "";
-      const user = await jwt.verify(token, "unsafe", (error, decoded) => {
+      const user = await jwt.verify(token, `${process.env.SECRET_PASSWORD}`, (error, decoded) => {
         if (error) {
           return console.log(error);
         }

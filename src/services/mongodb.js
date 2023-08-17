@@ -1,6 +1,6 @@
 const MongoClient = require("mongodb").MongoClient;
 
-const MONGODB = "mongodb+srv://oseiasc2:j3qqlbCc4YFFqnAP@apopydb.e92lo9p.mongodb.net/?retryWrites=true&w=majority";
+const MONGODB = `${process.env.MONGODB_ACESS}`;
 const client = new MongoClient(MONGODB, { useUnifiedTopology: true });
 const db = client.db("test")
 
