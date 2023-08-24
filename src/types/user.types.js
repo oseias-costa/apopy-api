@@ -26,9 +26,10 @@ module.exports =`#graphql
     users: [User]
     user: User
   }
-    
+
   type Mutation {
     registerUser(registerInput: RegisterInput): User
     loginUser(loginInput: LoginInput): User
+    deleteUser: User
   }
 `

@@ -119,6 +119,16 @@ module.exports = {
 
       return verify ? userVerify : null
     },
+
+    async deleteUser(_, args, { user_id }) {
+      const userId = new BSON.ObjectId(user_id)
+      await db.collection('categories').deleteMany({ userId: userId})
+      await db.collection('products').deleteMany({ userId: userId})
+      await db.collection('supliers').deleteMany({ userId: userId})
+      await db.collection('sale').deleteMany({ userId: userId})
+      await db.collection('stock').deleteMany({ userId: userId})
+      await db.collection('users').deleteMany({ _id: userId})
+    }
   },
   Query: {
     async users(_, __, ) {
