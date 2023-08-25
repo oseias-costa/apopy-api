@@ -1,7 +1,7 @@
 module.exports=`#graphql
 
     type Dashboard {
-        totalValue: Int
+        totalValue: Float
         totalItems: Int
         products: Int
     }
