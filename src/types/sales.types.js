@@ -27,11 +27,11 @@ module.exports = `#graphql
         product: String
         suplier: String
         quantity: Int
-        price: Int
-        total: Int
-        costPrice: Int
+        price: Float
+        total: Float
+        costPrice: Float
         description: String
-        profit: Int
+        profit: Float
         percentage: Float
         date: String
     }
@@ -44,9 +44,9 @@ module.exports = `#graphql
         product: String
         suplier: String
         quantity: Int
-        price: Int
-        total: Int
-        costPrice: Int
+        price: Float
+        total: Float
+        costPrice: Float
         description: String
     }
     
