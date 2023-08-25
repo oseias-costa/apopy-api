@@ -8,8 +8,7 @@ module.exports = {
   Mutation: {
     async registerUser(_, { registerInput: { name, email, password, phone } }) {
 
-      const nameRegex = /^[a-zA-Z\u00C0-\u017F´]+\s+[a-zA-Z\u00C0-\u017F´]{0,}$/
-      const nameVerify = name.match(nameRegex)
+      const nameVerify = name.split(' ').length >= 2
       if (!nameVerify) {
         throw new GraphQLError('Name does not match', {
           extentions: {
